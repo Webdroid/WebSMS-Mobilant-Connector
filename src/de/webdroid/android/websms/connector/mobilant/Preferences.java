@@ -19,10 +19,10 @@ public final class Preferences extends PreferenceActivity {
 	/** Preference's lowcost. */
 	static final String PREFS_LOWCOST = "lowcost_mobilant";
 
-	/** Preference's lowcost. */
+	/** Preference's plus option. */
 	static final String PREFS_PLUS = "plus_mobilant";
 
-	/** Preference's lowcost. */
+	/** Preference's debug modus. */
 	static final String PREFS_DEBUG = "debug_mobilant";
 
 	/**
