@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+	android:title="@string/connector_mobilant_preferences">
+	
+	<CheckBoxPreference 
+	    android:key="enable_mobilant"
+		android:title="@string/connector_mobilant_enable_" />
+		
+	<EditTextPreference 
+	    android:key="gateway_key_mobilant"
+		android:title="@string/connector_mobilant_gateway_key" 
+		android:dialogTitle="@string/connector_mobilant_gateway_key"
+		android:dependency="enable_mobilant" />
+			
+	<CheckBoxPreference 
+	    android:key="lowcost_mobilant"
+		android:defaultValue="false" 
+		android:title="@string/connector_mobilant_lowcost"
+		android:summary="@string/connector_mobilant_lowcost_hint"
+		android:disableDependentsState="false" 
+		android:dependency="enable_mobilant" />
+
+	<CheckBoxPreference 
+	    android:key="plus_mobilant"
+		android:defaultValue="true" 
+		android:title="@string/connector_mobilant_plus"
+		android:summary="@string/connector_mobilant_plus_hint"
+		android:disableDependentsState="false" 
+		android:dependency="enable_mobilant" />
+			
+	<CheckBoxPreference 
+	    android:key="use_default_sender"
+		android:defaultValue="true" 
+		android:title="@string/use_derfault_sender_"
+		android:summary="@string/use_derfault_sender_hint"
+		android:disableDependentsState="true" 
+		android:dependency="plus_mobilant" />
+		
+	<EditTextPreference 
+	    android:key="custom_sender"
+		android:inputType="phone" 
+		android:title="@string/custom_sender_"
+		android:dialogTitle="@string/custom_sender_" 
+		android:summary="@string/sender_hint"
+		android:dependency="use_default_sender" />
+	
+	<CheckBoxPreference 
+	    android:key="debug_mobilant"
+		android:defaultValue="false" 
+		android:title="@string/connector_mobilant_debug"
+		android:summary="@string/connector_mobilant_debug_hint"
+		android:disableDependentsState="false" 
+		android:dependency="enable_mobilant" />
+	
+</PreferenceScreen>

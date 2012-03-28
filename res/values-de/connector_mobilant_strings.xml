@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="connector_mobilant_preferences">Einstellungen - Mobilant</string>
+	<string name="connector_mobilant_enable_">Aktiviere Mobilant</string>
+	
+	<string name="connector_mobilant_gateway_key">Gateway Key</string>
+	<string name="connector_mobilant_no_gateway_key">Bitte geben Sie den Gateway-Key für den Mobilant Connector ein.</string>
+	
+	<string name="connector_mobilant_lowcost">Lowcost SMS</string>
+	<string name="connector_mobilant_lowcost_hint">Günstiger, dauert aber länger.</string>
+	
+	<string name="connector_mobilant_plus">Plus</string>
+	<string name="connector_mobilant_plus_hint">Mit Absenderkennung, aber teurer.</string>
+	
+	<string name="connector_mobilant_debug">Debug Modus</string>
+	<string name="connector_mobilant_debug_hint">Im Debug Modus werden keine SMS gesendet!</string>
+		
+	<string name="response_code_mobilant_010">Empfängernummer nicht korrekt</string>
+	<string name="response_code_mobilant_020">Absenderkennung nicht korrekt</string>
+	<string name="response_code_mobilant_030">Nachrichtentext nicht korrekt</string>
+	<string name="response_code_mobilant_031">Messagetyp nicht korrekt</string>
+	<string name="response_code_mobilant_032">Nachricht ist länger als 1530 Zeichen</string>
+	<string name="response_code_mobilant_040">SMS Route nicht korrekt</string>
+	<string name="response_code_mobilant_050">Identifikation fehlgeschlagen</string>
+	<string name="response_code_mobilant_060">nicht genügend Guthaben</string>
+	<string name="response_code_mobilant_070">Netz wird nicht abgedeckt</string>
+	<string name="response_code_mobilant_071">Feature nicht möglich</string>
+	<string name="response_code_mobilant_080">Übergabe an SMS-Carrier fehlgeschlage</string>
+	<string name="response_code_mobilant_100">SMS wurde angenommen und versendet</string>
+</resources>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">WebSMS Connector: Mobilant</string>
+	<string name="app_version">2.2</string>
+	<string name="connector_mobilant_author">Webdroid</string>
+	<string name="connector_mobilant_name">Mobilant</string>
+	
+	<string name="connector_mobilant_preferences">Preferences - Mobilant</string>
+	<string name="connector_mobilant_enable_">Enable Mobilant</string>
+	
+	<string name="connector_mobilant_gateway_key">Gateway Key</string>
+	<string name="connector_mobilant_no_gateway_key">Please enter the gateway key for mobilant connector</string>
+	
+	<string name="connector_mobilant_lowcost">Lowcost SMS</string>
+	<string name="connector_mobilant_lowcost_hint">Lower cost, but longer delivery</string>
+	
+	<string name="connector_mobilant_plus">Plus</string>
+	<string name="connector_mobilant_plus_hint">With Sender ID, but more expensive</string>
+	
+	<string name="connector_mobilant_debug">Debug Modus</string>
+	<string name="connector_mobilant_debug_hint">In debug mode, no SMS will be sent!</string>
+	
+	<string name="response_code_mobilant_010">Incorrect recipient number</string>
+	<string name="response_code_mobilant_020">Sender ID is not correct</string>
+	<string name="response_code_mobilant_030">Incorrect message body</string>
+	<string name="response_code_mobilant_031">Message type not correctly</string>
+	<string name="response_code_mobilant_032">the message is longer than 1530 characters</string>
+	<string name="response_code_mobilant_040">SMS route is not correct</string>
+	<string name="response_code_mobilant_050">identification failed</string>
+	<string name="response_code_mobilant_060">not enough credit</string>
+	<string name="response_code_mobilant_070">Network is not covered</string>
+	<string name="response_code_mobilant_071">Feature not available</string>
+	<string name="response_code_mobilant_080">Transfer to Carrier SMS failed</string>
+	<string name="response_code_mobilant_100">SMS was accepted and sent</string>
+</resources>
