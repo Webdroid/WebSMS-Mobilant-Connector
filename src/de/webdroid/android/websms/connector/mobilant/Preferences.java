@@ -1,14 +1,14 @@
 package de.webdroid.android.websms.connector.mobilant;
 
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
+import de.ub0r.android.websms.connector.common.ConnectorPreferenceActivity;
 
 /**
  * Preferences.
  * 
  * @author Webdroid
  */
-public final class Preferences extends PreferenceActivity {
+public final class Preferences extends ConnectorPreferenceActivity {
 
 	/** Preference key: enabled. */
 	static final String PREFS_ENABLED = "enable_mobilant";

@@ -39,8 +39,8 @@ public class ConnectorMobilant extends Connector {
 	/** Gateway Cert footprint. */
 	private static final String[] CERT_FOOTPRINT = { "62:18:87:f1:ad:3e:82:2c:35:60:0a:18:7a:ee:ed:73:78:77:6e:be" };
 
-	/** Use HTTP POST. */
-	private static final boolean USE_POST = false;
+	/** Encoding */
+	private final static String ENCODING = "ISO-8859-15";
 
 	/** Debug. */
 	private static final String PARAM_DEBUG = "debug";
@@ -92,10 +92,11 @@ public class ConnectorMobilant extends Connector {
 		final SharedPreferences p = PreferenceManager
 				.getDefaultSharedPreferences(context);
 
+		int feature = 0;
 		if (p.getBoolean(Preferences.PREFS_PLUS, false)) {
-			c.addSubConnector(TAG, c.getName(),
-					SubConnectorSpec.FEATURE_CUSTOMSENDER);
+			feature = SubConnectorSpec.FEATURE_CUSTOMSENDER;
 		}
+		c.addSubConnector(TAG, c.getName(), feature);
 
 		return c;
 	}
@@ -176,7 +177,7 @@ public class ConnectorMobilant extends Connector {
 					.getDefaultSharedPreferences(context);
 
 			String url;
-			ArrayList<BasicNameValuePair> d = new ArrayList<BasicNameValuePair>();
+			ArrayList<BasicNameValuePair> getData = new ArrayList<BasicNameValuePair>();
 			final String message = command.getText();
 
 			if (message != null && message.length() > 0) {
@@ -184,14 +185,14 @@ public class ConnectorMobilant extends Connector {
 				url = URL_SEND;
 
 				if (p.getBoolean(Preferences.PREFS_DEBUG, false)) {
-					d.add(new BasicNameValuePair(PARAM_DEBUG, "1"));
+					getData.add(new BasicNameValuePair(PARAM_DEBUG, "1"));
 				}
 
-				d.add(new BasicNameValuePair(PARAM_TO, Utils
+				getData.add(new BasicNameValuePair(PARAM_TO, Utils
 						.joinRecipientsNumbers(command.getRecipients(), ";",
 								true)));
 
-				d.add(new BasicNameValuePair(PARAM_MESSAGE, message));
+				getData.add(new BasicNameValuePair(PARAM_MESSAGE, message));
 
 				Log.d(TAG, "LEN: " + message.length());
 
@@ -202,19 +203,19 @@ public class ConnectorMobilant extends Connector {
 								R.string.response_code_mobilant_032);
 					} else {
 
-						d.add(new BasicNameValuePair(PARAM_CONCAT, "1"));
+						getData.add(new BasicNameValuePair(PARAM_CONCAT, "1"));
 					}
 				}
 
 				final String customSender = command.getCustomSender();
 				if (customSender == null) {
-					d.add(new BasicNameValuePair(PARAM_SENDER, Utils
+					getData.add(new BasicNameValuePair(PARAM_SENDER, Utils
 							.national2international(
 									command.getDefPrefix(),
 									Utils.getSender(context,
 											command.getDefSender()))));
 				} else {
-					d.add(new BasicNameValuePair(PARAM_SENDER, Utils
+					getData.add(new BasicNameValuePair(PARAM_SENDER, Utils
 							.national2international(command.getDefPrefix(),
 									customSender).replaceAll("[^0-9+]", "")));
 				}
@@ -226,18 +227,20 @@ public class ConnectorMobilant extends Connector {
 				if (isLowcost) {
 
 					if (isPlus) {
-						d.add(new BasicNameValuePair(PARAM_ROUTE,
+						getData.add(new BasicNameValuePair(PARAM_ROUTE,
 								PARAM_LOWCOST_PLUS));
 					} else {
-						d.add(new BasicNameValuePair(PARAM_ROUTE, PARAM_LOWCOST));
+						getData.add(new BasicNameValuePair(PARAM_ROUTE,
+								PARAM_LOWCOST));
 					}
 				} else {
 
 					if (isPlus) {
-						d.add(new BasicNameValuePair(PARAM_ROUTE,
+						getData.add(new BasicNameValuePair(PARAM_ROUTE,
 								PARAM_DIRECT_PLUS));
 					} else {
-						d.add(new BasicNameValuePair(PARAM_ROUTE, PARAM_DIRECT));
+						getData.add(new BasicNameValuePair(PARAM_ROUTE,
+								PARAM_DIRECT));
 					}
 				}
 
@@ -254,27 +257,27 @@ public class ConnectorMobilant extends Connector {
 						R.string.connector_mobilant_no_gateway_key);
 			}
 
-			d.add(new BasicNameValuePair(PARAM_KEY, gateway_key));
+			getData.add(new BasicNameValuePair(PARAM_KEY, gateway_key));
 
-			if (!USE_POST) {
-				StringBuilder u = new StringBuilder(url);
-				u.append("?");
-				final int l = d.size();
-				for (int i = 0; i < l; i++) {
-					BasicNameValuePair nv = d.get(i);
-					u.append(nv.getName());
-					u.append("=");
-					u.append(URLEncoder.encode(nv.getValue(), "ISO-8859-15"));
-					u.append("&");
-				}
-				url = u.toString();
-				d = null;
+			/* Make URL with GET Params */
+			StringBuilder u = new StringBuilder(url);
+			u.append("?");
+			final int l = getData.size();
+			for (int i = 0; i < l; i++) {
+				BasicNameValuePair nv = getData.get(i);
+				u.append(nv.getName());
+				u.append("=");
+				u.append(URLEncoder.encode(nv.getValue(), ENCODING));
+				u.append("&");
 			}
+			url = u.toString();
+			getData = null;
 
-			Log.d(TAG, "URL: " + url);
+			Utils.HttpOptions o = new Utils.HttpOptions(ENCODING);
+			o.url = url;
+			o.knownFingerprints = CERT_FOOTPRINT;
 
-			HttpResponse response = Utils.getHttpClient(url, null, d, null,
-					null, "ISO-8859-15", CERT_FOOTPRINT);
+			HttpResponse response = Utils.getHttpClient(o);
 
 			int resp = response.getStatusLine().getStatusCode();
 
